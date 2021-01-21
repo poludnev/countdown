@@ -61,7 +61,7 @@
     };
     const string = document.getElementById('tiemr-string');
     if ( diff <= 0) {
-      string.innerHTML = 'It\'s too late to set countdown. You\'ve missed that all.';
+      string.innerHTML = 'It\'s too late to set a countdown. You\'ve missed that all.';
       return;
     }
     string.innerHTML = `${setDays(days)}${setHours(hours)}${setMinutes(minutes)}${setSeconds(seconds)}`;
