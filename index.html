@@ -1,132 +1,60 @@
-<DOCTYPE html>
-  <html>
-    <head>
-      <style>
-        .timer {
-  font-size: 1.5em;
-  margin: auto;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  height: 80px;
-  top: calc(50% - 80px / 2);
-  left: calc(50% - 100%/2);
-}
-.body {
-  margin: auto;
-  position: relative;
-  text-align: center;
-}
-        h1 {
-          margin: 0;
-        }
-        .date {
-          text-align: center;
-          margin: 150px;
-        }
-      </style>
-    </head>
-    <body>
-      <script>
-       window.onload = function() {
-  
-  const getTime = (time) => {
-    const rightNow = Date.now();  
-    const deadline = time;
-    const x = new Date(rightNow);
-    const diff = (deadline - rightNow)/1000;
-    console.log(diff);
-    let days = diff / 60 / 60 / 24;
-    let hours = (days - Math.floor(days)) * 24;
-    let minutes = (hours - Math.floor(hours)) * 60;
-    let seconds = (minutes - Math.floor(minutes)) * 60;
-    const setDays = (days) => {
-      if (days < 1) return '';
-      if (days < 2) return '1 Day : ';
-      return `${Math.floor(days)} Days : `; 
-    };
-    const setHours = (hours) => {
-      if (hours < 2 && hours >= 1) return `0${Math.floor(hours)} Hour : `;
-      if (hours <= 9) return `0${Math.floor(hours)} Hours : `;
-      return `${Math.floor(hours)} Hours : `
-    };
-    const setMinutes = (minutes) => {
-      if (minutes < 2 && minutes >= 1) return `0${Math.floor(minutes)} Minute : `;
-      if (minutes < 10 || minutes < 1) return `0${Math.floor(minutes)} Minutes : `;
-      return `${Math.floor(minutes)} Minutes : `
-    };
-    const setSeconds = (seconds) => {
-      if (seconds < 2 && seconds >= 1) return `0${Math.floor(seconds)} Second`;
-      if (seconds < 10 || seconds < 1) return `0${Math.floor(seconds)} Seconds`;
-      return `${Math.floor(seconds)} Seconds`
-    };
-    const string = document.getElementById('tiemr-string');
-    if ( diff <= 0) {
-      string.innerHTML = 'It\'s too late to set a countdown. You\'ve missed that all.';
-      return;
-    }
-    string.innerHTML = `${setDays(days)}${setHours(hours)}${setMinutes(minutes)}${setSeconds(seconds)}`;
-    return;
-  };
-  
-  const countDown = () => {
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Countdown v2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
     
-    const state = {
-      setIntervalCounter: 0,
-    };  
+  </head>
+  <body>
     
-    const dateInputStart = () => {
-      console.log(state);
-      for (let i = state.setIntervalCounter; i >= 0; i -= 1) {
-        clearInterval(i);
-        console.log('clear test');
-      }
-      console.log('value', dateInput.value)
-      const newTime = Date.parse(`${(dateInput.value)}:00+10:00`);
-      console.log(newTime);
-    
-      console.log('date input start');
-      const id = setInterval(() => { getTime(newTime) }, 1000);
-      state.setIntervalCounter += 1;
-    }
-    
-    const dateInput = document.getElementById('dateInput');
-    dateInput.addEventListener('input', dateInputStart);
-    dateInput.addEventListener('click', () => {});
-    
-  
-  };
-  
-  countDown();
-  
-  
-    
-//     dateInput.addEventListener('input', () => {
+    <div class="card border-0 shadow-sm container justify-content-center position-absolute top-50 start-50 translate-middle d-none" id="timer">
+      <div id="timer-caption-1" class="h2 timer-string">You got</div>
+      <div id="timer-months" class="h1 timer-string"><span id="timer-months-units-value">2</span><span id="timer-months-units-diviвук"> </span><span id="timer-months-units-name">Months</span></div>
+      <div id="timer-days" class="h1 timer-string"><span id="timer-days-units-value">2</span><span id="timer-days-units-diviвук"> </span><span id="timer-days-units-name">Days</span></div>
+      <div id="timer-hours" class="h1 timer-string"><span id="timer-hours-units-value">2</span><span id="timer-hours-units-diviвук"> </span><span id="timer-hours-units-name">Hours</span></div>
+      <div id="timer-minutes" class="h1 timer-string"><span id="timer-minutes-units-value">2</span><span id="timer-minutes-units-diviвук"> </span><span id="timer-minutes-units-name">Minutes</span></div>
+      <div id="timer-seconds" class="h1 timer-string"><span id="timer-seconds-units-value">2</span><span id="timer-seconds-units-diviвук"> </span><span id="timer-seconds-units-name">Seconds</span></div>
+      <div id="timer-milleseconds" class="h1 timer-string"><span id="timer-milleseconds-units-value">2</span><span id="timer-milleseconds-units-diviвук"> </span><span id="timer-milleseconds-units-name">Milleseconds</span></div>
+      <div id="timer-caption-2" class="h2 timer-string">left</div>
+      <div class="card-footer text-muted text-center bg-white">
+        <div>
+         <button type="" class="btn btn-outline-secondary" id="stopResetButton">Stop and reset</button>
+        </div>
+        
+      </div>
       
-//       console.log(state.setIntervalCounter);
-//       const newTime = Date.parse(`${(dateInput.value)}:00+00:00`);
-//       const interval = setInterval(
-//         () => {
-//          state.setIntervalCounter += 1;
-//          return f(newTime);
-//         },
-//         1000);
-//     });
-//     dateInput.addEventListener('click', () => {
-//       console.log('state.setIntervalCounter', state.setIntervalCounter)
-//     for (let i = state.setIntervalCounter; i > 1; i -= 1 ) {
-//         clearInterval(i);
-//       };
-//     });
-  
-  
-  };
-      </script>
-      <div class="timer">
-        <h1 id="tiemr-string"></h1>
-      </div>
-      <div class="date">
-        <form><input type="datetime-local" id="dateInput"></form>
-      </div>
-    </body>
-  </html>
+      
+      
+    </div>
+    <div class="container justify-content-center position-absolute top-50 start-50 translate-middle d-flex" id="formBlock">
+      <form class="d-flex justify-content-center flex-column align-items-center text-center" id="form">
+        <div class="mb-3 w-250 text-center">
+          <label for="dateInput" class="form-label">Choose date</label>
+          <input type="date" class="form-control" id="dateInput" aria-describedby="dateInputNotify" value="2020-10-10">
+          <div id="dateInputNotify" class="form-text">This will be your dead-line date</div>
+        </div>
+        <div class="mb-3 w-250">
+          <label for="timeInput" class="form-label">Choose time</label>
+          <input type="time" class="form-control" id="timeInput" aria-describedby="timeInputNotify" value="00:00">
+          <div id="timeInputNotify" class="form-text">This will be your dead-line time</div>
+        </div>
+        <div class="mb-3 w-350">
+          <label for="timezone-offset" class="form-label">Choose time zone</label>
+          <select name="timezone_offset" id="timezone-offset" class="form-select">
+            <option value="+10:00">(GMT +10:00) Vladivostok</option>
+            <option value="+03:00">(GMT +3:00) Moscow, St. Petersburg</option>
+        	  <option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+	        </select>
+        </div>
+          <div class="mb-3 w-350">
+          <button type="" class="btn btn-danger" id="inputTimeFormSubmitButton">START!</button>
+        </div>
+      </form>      
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+    

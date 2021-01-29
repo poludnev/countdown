@@ -1,0 +1,12 @@
+body {
+/*   background-color: yellow; */
+}
+.w-250 {
+  max-width: 250px;
+}
+.w-350 {
+  max-width: 350px;
+}
+.timer-string {
+  text-align: center;
+}
