@@ -24,7 +24,7 @@ const formatedDateTime = {
 };
 
 const makeDateToISO = (formData) => {
-  console.log(formData);
+  // console.log(formData);
   const date = formData.dateInput;
   const time = formData.timeInput;
   const timezone = formData['timezone-offset'];
@@ -56,16 +56,28 @@ const countDownState = {
     };
 
 const countDown = (deadLineTime) => {
+  const initialTime = new Date(Date.now());
     
   const id = setInterval(() => { 
-    console.log(deadLineTime - new Date(Date.now()));
+    // console.log(deadLineTime - new Date(Date.now()));
       
     const remain = parseTime(deadLineTime - new Date(Date.now()));
+    
+    const progress = 100 - (deadLineTime - new Date(Date.now())) / (deadLineTime - initialTime)* 100;
+    console.log(initialTime);
+    console.log(deadLineTime);
+    console.log(deadLineTime - initialTime);
+    console.log(deadLineTime - new Date(Date.now()))
+    console.log((1 - (deadLineTime - new Date(Date.now()))/(deadLineTime - initialTime)) * 100);
+    console.log(progress);
   
     if (deadLineTime - new Date(Date.now()) <= 0) {
       document.getElementById('timer-milleseconds-units-value').innerHTML = 0;
       document.getElementById('timer-caption-1').innerHTML = 'You\'ve got nothing. It\'s all over.';
       document.getElementById('timer-caption-2').innerHTML = '';
+      document.getElementById('progress-bar1').classList.remove('progress-bar-animated');
+      document.getElementById('progress-bar1').setAttribute('style', `width: ${0}%`);
+      
       for (let i = countDownState.setIntervalCounter + 1; i >= 0; i -= 1) {      
       clearInterval(i);     
       }
@@ -76,6 +88,8 @@ const countDown = (deadLineTime) => {
     document.getElementById('timer-hours-units-value').innerHTML = remain.hours;
     document.getElementById('timer-minutes-units-value').innerHTML = remain.minutes;
     document.getElementById('timer-seconds-units-value').innerHTML = remain.seconds;
+    document.getElementById('progress-bar1').setAttribute('style', `width: ${100 - progress}%`);
+    document.getElementById('progress-bar2').setAttribute('style', `width: ${progress}%`);
     let ms = remain.milleseconds;
     if (remain.milleseconds < 100) {
       ms = `0${remain.milleseconds}`;
@@ -84,7 +98,7 @@ const countDown = (deadLineTime) => {
     }
     
     document.getElementById('timer-milleseconds-units-value').innerHTML = ms;
-  }, 10);
+  }, 50);
   countDownState.setIntervalCounter += 1;
     
   
@@ -128,6 +142,8 @@ window.onload = function() {
     formBlock.classList.remove('d-flex');
     timer.classList.add('d-flex');
     timer.classList.remove('d-none');
+    document.getElementById('progress-bar1').classList.add('progress-bar-animated');
+    document.getElementById('progress-bar1').setAttribute('style', `width: ${100}%`);
     countDown(deadLineTime);
   });
   
