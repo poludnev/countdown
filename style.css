@@ -1,5 +1,7 @@
 body {
 /*   background-color: yellow; */
+  font-family: 'Courier Prime', monospace;
+  font-weight: 700;
 }
 .w-250 {
   max-width: 250px;
