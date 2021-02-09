@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Countdown v2</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courier+Prime">
+  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -9,15 +11,23 @@
     
   </head>
   <body>
+    <div class="d-flex justify-content-center p-2" id ="romanCounterBlock">
+      <button type="" class="btn btn-success" id="romanCounter" style="width: 250px; height: 50px;">Roman's CountDown</button>
+    </div>
+    <div id ="guestCounterBlock" class="d-none justify-content-center p-2">
+      <button type="" class="btn btn-primary" id="guestCounterBtn" style="width: 250px; height: 50px;">Back To Yours</button>
+    </div>
     
     <div class="card border-0 shadow-sm container justify-content-center position-absolute top-50 start-50 translate-middle d-none" id="timer">
       <div id="timer-caption-1" class="h2 timer-string">You got</div>
+      <div id="timer-group" class="h2 timer-string">      
       <div id="timer-months" class="h1 timer-string"><span id="timer-months-units-value">2</span><span id="timer-months-units-diviвук"> </span><span id="timer-months-units-name">Months</span></div>
       <div id="timer-days" class="h1 timer-string"><span id="timer-days-units-value">2</span><span id="timer-days-units-diviвук"> </span><span id="timer-days-units-name">Days</span></div>
       <div id="timer-hours" class="h1 timer-string"><span id="timer-hours-units-value">2</span><span id="timer-hours-units-diviвук"> </span><span id="timer-hours-units-name">Hours</span></div>
       <div id="timer-minutes" class="h1 timer-string"><span id="timer-minutes-units-value">2</span><span id="timer-minutes-units-diviвук"> </span><span id="timer-minutes-units-name">Minutes</span></div>
       <div id="timer-seconds" class="h1 timer-string"><span id="timer-seconds-units-value">2</span><span id="timer-seconds-units-diviвук"> </span><span id="timer-seconds-units-name">Seconds</span></div>
       <div id="timer-milleseconds" class="h1 timer-string"><span id="timer-milleseconds-units-value">2</span><span id="timer-milleseconds-units-diviвук"> </span><span id="timer-milleseconds-units-name">Milleseconds</span></div>
+      </div>
       <div id="timer-caption-2" class="h2 timer-string">left</div>
       <div class="card-footer text-muted text-center bg-white">
         
