@@ -31,22 +31,35 @@ const makeDateToISO = (formData) => {
 };
 
 const parseTime = (milleseconds) => {
+  // console.log(milleseconds);
+  // console.log(milleseconds / 1000);
+  // console.log(milleseconds / 1000 / 60);
+  // console.log(milleseconds / 1000 / 60 / 60);
+  // console.log(milleseconds / 1000 / 60 / 60 / 24);
+  // console.log(milleseconds / 1000 / 60 / 60 / 60 / 24);
+  
+  
+              
   const seconds = Math.floor(milleseconds / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
   const months = Math.floor(days / 30);
   const years = Math.floor(days / 365);
+  // console.log(months, days);
+  
   
   const result = {
     years: years,
-    months: Math.ceil(months / 12),
+    // months: Math.ceil(months / 12), // dont' remember what was the idea, but now it results in a mistake: months are always 1 if more than 0
+    months: months,
     days: days - months * 30,
     hours: hours - days * 24,
     minutes: minutes - hours * 60,
     seconds: seconds - minutes * 60,
     milleseconds: milleseconds - seconds * 1000,
   };
+  // console.log(result);
   return result;
 };
 
@@ -68,6 +81,7 @@ const render = {
   formBlock: document.getElementById('formBlock'),
   dateInput: document.getElementById('dateInput'),
   timeInput: document.getElementById('timeInput'),
+  // timeZoneSelect: document.getElementById('timezone-offset'),
   guestCounterBlock: document.getElementById('guestCounterBlock'),
   romanCounterBlock: document.getElementById('romanCounterBlock'),
   initialTimeDelayMileSec: 60000,
@@ -139,6 +153,7 @@ const render = {
       <div id="timer-seconds" class="h1 timer-string"><span id="timer-seconds-units-value">2</span><span id="timer-seconds-units-diviвук"> </span><span id="timer-seconds-units-name">Seconds</span></div>
       <div id="timer-milleseconds" class="h1 timer-string"><span id="timer-milleseconds-units-value">2</span><span id="timer-milleseconds-units-diviвук"> </span><span id="timer-milleseconds-units-name">Milleseconds</span></div>`;
           document.getElementById('timer-months-units-value').innerHTML = remainTime.months;
+          // console.log(remainTime)
           document.getElementById('timer-days-units-value').innerHTML = remainTime.days;
           document.getElementById('timer-hours-units-value').innerHTML = remainTime.hours;
           document.getElementById('timer-minutes-units-value').innerHTML = remainTime.minutes;
@@ -189,6 +204,7 @@ const countDown = (deadLineTime, initialTime = new Date(Date.now())) => {
       }
       
       const remainTime = parseTime(deadLineTimeNowTimeDifference);
+      // console.log(remainTime);
       const progress = 100 - deadLineTimeNowTimeDifference / deadLineInitialTimeDifference * 100;
       let intViewportWidth = window.innerWidth;
       const view = intViewportWidth < 400 ? 'view02' : 'view01';
@@ -199,6 +215,42 @@ const countDown = (deadLineTime, initialTime = new Date(Date.now())) => {
 };
 
 window.onload = function() {
+//   getting user's local time zone
+  // const offset = new Date().getTimezoneOffset();
+  // console.log('time zone offset', offset);
+  const tz = document.getElementById('timezone-offset');
+  console.log(tz);
+  // tz.forEach((e) => {console.log(e)})
+  for (let e of tz) {
+    console.log(e);
+    console.log(e.value);
+    console.log(e.getAttribute('selected'));
+    if (e.getAttribute('selected') !== null) {
+      console.log('selected');
+      e.removeAttribute('selected');
+    }
+    console.log(new Date().getTimezoneOffset())
+    const convertValue = e.value.split(':').reduce((acc, val) => {
+      console.log('val:', val);
+      console.log('val2:', Number(val));
+      
+      return acc;
+      
+    }, 0);
+    console.log(convertValue);
+    if (e.value === new Date().getTimezoneOffset() ) {
+      console.log('time zone');
+    }
+    
+  }
+  const zz = tz.querySelectorAll('option')
+  console.log(zz);
+  zz.forEach((curV) => {console.log(curV)})
+  const zy = document.querySelectorAll('[selected]');
+  // zy.removeAttribute('selected')
+  console.log(zy)
+  
+  
   render.initiate();
   
   const form = document.getElementById('form');
@@ -231,17 +283,17 @@ window.onload = function() {
   romanCounter.addEventListener('click', (e) => {
     
     const formData = {
-      dateInput: '2021-02-17',
-      timeInput: '09:35',
-      'timezone-offset': '+10:00'
+      dateInput: '2021-11-11',
+      timeInput: '00:00',
+      'timezone-offset': '+03:00'
     }
     const deadLineTime = new Date(makeDateToISO(formData));
     
     clearIntervals(countDownState);
     countDownState.countDownType = 'roman';
-    render.getToCountDown(true, { caption1: 'Roman has', caption2: 'to leave Vladivostok'});
+    render.getToCountDown(true, { caption1: 'Roman has', caption2: 'to do complete his studying'});
     
-    countDown(deadLineTime, new Date('2021-02-05T00:00:00+10:00'));
+    countDown(deadLineTime, new Date('2021-03-12T00:00:00+03:00'));
     
   });
   guestCounterBtn.addEventListener('click', (e) => {
