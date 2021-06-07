@@ -84,6 +84,7 @@ const render = {
   // timeZoneSelect: document.getElementById('timezone-offset'),
   guestCounterBlock: document.getElementById('guestCounterBlock'),
   romanCounterBlock: document.getElementById('romanCounterBlock'),
+  mariaCounterBlock: document.getElementById('mariaCounterBlock'),
   initialTimeDelayMileSec: 60000,
   
   initiate(initialDateTime = new Date(Date.now() + this.initialTimeDelayMileSec)) {
@@ -110,12 +111,26 @@ const render = {
       this.guestCounterBlock.classList.add('d-flex');
       this.romanCounterBlock.classList.remove('d-flex');
       this.romanCounterBlock.classList.add('d-none');
+      this.mariaCounterBlock.classList.remove('d-none');
+      this.mariaCounterBlock.classList.add('d-flex');
     }
-    if (countDownState.countDownType === 'guest') {
-      this.romanCounterBlock.classList.add('d-flex');
+    if (countDownState.countDownType === 'maria') {
+      this.guestCounterBlock.classList.remove('d-none');
+      this.guestCounterBlock.classList.add('d-flex');
       this.romanCounterBlock.classList.remove('d-none');
+      this.romanCounterBlock.classList.add('d-flex');
+      this.mariaCounterBlock.classList.remove('d-flex');
+      this.mariaCounterBlock.classList.add('d-none');
+
+    }
+
+    if (countDownState.countDownType === 'guest') {
       this.guestCounterBlock.classList.remove('d-flex');
       this.guestCounterBlock.classList.add('d-none');  
+      this.romanCounterBlock.classList.remove('d-none');
+      this.romanCounterBlock.classList.add('d-flex');
+      this.mariaCounterBlock.classList.remove('d-none');
+      this.mariaCounterBlock.classList.add('d-flex');
     }
     
     document.getElementById('progress-bar1').classList.add('progress-bar-animated');
@@ -296,6 +311,7 @@ window.onload = function() {
     countDown(deadLineTime, new Date('2021-03-12T00:00:00+03:00'));
     
   });
+
   guestCounterBtn.addEventListener('click', (e) => {
     countDownState.countDownType = 'guest';
     clearIntervals(countDownState);
@@ -304,3 +320,22 @@ window.onload = function() {
     })
   
 };
+
+const mariaCounter = document.getElementById('mariaCounter');
+
+mariaCounter.addEventListener('click', (e) => {
+    
+  const formData = {
+    dateInput: '2021-06-18',
+    timeInput: '19:00',
+    'timezone-offset': '+03:00'
+  }
+  const deadLineTime = new Date(makeDateToISO(formData));
+  
+  clearIntervals(countDownState);
+  countDownState.countDownType = 'maria';
+  render.getToCountDown(true, { caption1: 'Maria has', caption2: 'to get the hell out of here'});
+  
+  countDown(deadLineTime, new Date('2021-06-03T12:00:00+03:00'));
+  
+});
